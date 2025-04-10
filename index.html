@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMart - Your Modern Electronics Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+    
+        :root {
+            --primary-color: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --primary-light: #a78bfa;
+            --secondary-color: #6d28d9;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .hero-section {
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('images/m1.PNG');  
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 8rem 0;
+    margin-top: 56px;
+}
+
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-card {
+            height: 100%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .gallery-img {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .gallery-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .social-icon {
+            font-size: 1.5rem;
+            margin: 0 10px;
+            color: var(--dark-color);
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-img {
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-form {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            padding: 30px;
+        }
+        
+        .nav-item .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-item .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-item .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .nav-item .nav-link:hover {
+            color: var(--primary-color) !important;
+        }
+        
+        .category-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .category-card img {
+            transition: transform 0.5s ease;
+        }
+        
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .category-card .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            padding: 20px;
+            color: white;
+        }
+        
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+        
+        .badge-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .badge-new {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
+        
+        .badge-discount {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+            background-color: #dc3545;
+        }
+        
+        .rating .bi-star-fill {
+            color: #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <span class="text-primary">Tech</span>Mart
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Products
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="laptops.html">Laptops</a></li>
+                            <li><a class="dropdown-item" href="smartphones.html">Smartphones</a></li>
+                            <li><a class="dropdown-item" href="accessories.html">Accessories</a></li>
+                            <li><a class="dropdown-item" href="smart-home.html">Smart Home</a></li>
+                            <li><a class="dropdown-item" href="gaming.html">Gaming</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#products">All Products</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-primary" href="#">
+                            <i class="bi bi-cart"></i> Cart (0)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-4">Welcome to <span class="text-primary">TechMart</span></h1>
+            <p class="lead mb-5">Discover the future of technology with our cutting-edge electronics and gadgets</p>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">Shop by Category</h2>
+            <div class="row g-4">
+                <div class="col-6 col-md-4 col-lg">
+                    <a href="laptops.html" class="text-decoration-none">
+                        <div class="category-card">
+                            <img src="images/laptops/l1.jpg" alt="Laptops" class="img-fluid rounded">
+                            <div class="overlay">
+                                <h5 class="mb-1">Laptops</h5>
+                                <p class="small mb-0">120 products</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-md-4 col-lg">
+                    <a href="smartphones.html" class="text-decoration-none">
+                        <div class="category-card">
+                            <img src="images/smart-home/s1.webp" alt="Smartphones" class="img-fluid rounded">
+                            <div class="overlay">
+                                <h5 class="mb-1">Smartphones</h5>
+                                <p class="small mb-0">95 products</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-md-4 col-lg">
+                    <a href="accessories.html" class="text-decoration-none">
+                        <div class="category-card">
+                            <img src="images/accessories/a1.jpg" alt="Accessories" class="img-fluid rounded">
+                            <div class="overlay">
+                                <h5 class="mb-1">Accessories</h5>
+                                <p class="small mb-0">150 products</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-md-4 col-lg">
+                    <a href="smart-home.html" class="text-decoration-none">
+                        <div class="category-card">
+                            <img src="images/smart-home/s1.webp" alt="Smart Home" class="img-fluid rounded">
+                            <div class="overlay">
+                                <h5 class="mb-1">Smart Home</h5>
+                                <p class="small mb-0">78 products</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-6 col-md-4 col-lg">
+                    <a href="gaming.html" class="text-decoration-none">
+                        <div class="category-card">
+                            <img src="images/gaming/g1.webp" alt="Gaming" class="img-fluid rounded">
+                            <div class="overlay">
+                                <h5 class="mb-1">Gaming</h5>
+                                <p class="small mb-0">65 products</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section id="products" class="py-5 bg-light">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="section-title mb-0">Featured Products</h2>
+                <a href="#" class="btn btn-link text-primary">View All <i class="bi bi-chevron-right"></i></a>
+            </div>
+            <div class="row g-4">
+                <!-- Product 1 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card product-card h-100">
+                        <span class="badge bg-primary badge-new">New</span>
+                        <img src="images/laptops/l1.jpg" class="card-img-top" alt="MacBook Pro">
+                        <div class="card-body d-flex flex-column">
+                            <p class="text-muted small">Laptops</p>
+                            <h5 class="card-title">MacBook Pro M2</h5>
+                            <div class="rating mb-2">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <span class="ms-1 text-muted small">(142)</span>
+                            </div>
+                            <div class="mt-auto">
+                                <span class="fw-bold text-primary">$1,499.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card product-card h-100">
+                        <img src="images/phones/p2.jpg" class="card-img-top" alt="Samsung Galaxy S23 Ultra">
+                        <div class="card-body d-flex flex-column">
+                            <p class="text-muted small">Smartphones</p>
+                            <h5 class="card-title">Galaxy S23 Ultra</h5>
+                            <div class="rating mb-2">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <span class="ms-1 text-muted small">(98)</span>
+                            </div>
+                            <div class="mt-auto">
+                                <span class="fw-bold text-primary">$1,199.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card product-card h-100">
+                        <span class="badge bg-primary badge-new">New</span>
+                        <img src="images/accessories/a1.jpg" class="card-img-top" alt="Sony WH-1000XM5">
+                        <div class="card-body d-flex flex-column">
+                            <p class="text-muted small">Audio</p>
+                            <h5 class="card-title">Sony WH-1000XM5</h5>
+                            <div class="rating mb-2">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <span class="ms-1 text-muted small">(76)</span>
+                            </div>
+                            <div class="mt-auto">
+                                <span class="fw-bold text-primary">$349.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card product-card h-100">
+                        <span class="badge bg-danger badge-discount">15% OFF</span>
+                        <img src="images/smart-home/s1.webp" class="card-img-top" alt="Nest Learning Thermostat">
+                        <div class="card-body d-flex flex-column">
+                            <p class="text-muted small">Smart Home</p>
+                            <h5 class="card-title">Nest Learning Thermostat</h5>
+                            <div class="rating mb-2">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <span class="ms-1 text-muted small">(57)</span>
+                            </div>
+                            <div class="mt-auto">
+                                <div>
+                                    <span class="fw-bold text-primary">$249.99</span>
+                                    <span class="text-muted text-decoration-line-through ms-2 small">$294.99</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--  Banner -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="bg-primary rounded-3 p-5 text-white">
+                        <div class="row align-items-center">
+                            <div class="col-md-7">
+                                <span class="badge bg-white text-primary mb-3">Limited Time</span>
+                                <h2 class="display-5 fw-bold mb-3">Tech Summer Sale</h2>
+                                <p class="lead mb-4">Get up to 40% off on selected laptops, smartphones, and accessories. Upgrade your tech today!</p>
+                                <a href="#" class="btn btn-light">Shop the Sale</a>
+                            </div>
+                            <div class="col-md-5 d-none d-md-block">
+                                <img src="images/m2.PNG" alt="Tech Sale" class="img-fluid rounded">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrival -->
+    <section class="py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="section-title mb-0">New Arrivals</h2>
+                <a href="#" class="btn btn-link text-primary">View All <i class="bi bi-chevron-right"></i></a>
+            </div>
+            <div class="row g-4">
+                <!-- Product 1 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card product-card h-100">
+                        <span class="badge bg-primary badge-new">New</span>
+                        <img src="images/m3.PNG" class="card-img-top" alt="iPad Pro">
+                        <div class="card-body d-flex flex-column">
+                            <p class="text-muted small">Tablets</p>
+                            <h5 class="card-title">iPad Pro 12.9"</h5>
+                            <div class="rating mb-2">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <span class="ms-1 text-muted small">(38)</span>
+                            </div>
+                            <div class="mt-auto">
+                                <span class="fw-bold text-primary">$1,099.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card product-card h-100">
+                        <span class="badge bg-primary badge-new">New</span>
+                        <img src="images/m4.PNG" class="card-img-top" alt="ASUS ROG Gaming Laptop">
+                        <div class="card-body d-flex flex-column">
+                            <p class="text-muted small">Gaming</p>
+                            <h5 class="card-title">ASUS ROG Gaming Laptop</h5>
+                            <div class="rating mb-2">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <span class="ms-1 text-muted small">(43)</span>
+                            </div>
+                            <div class="mt-auto">
+                                <span class="fw-bold text-primary">$1,899.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card product-card h-100">
+                        <span class="badge bg-primary badge-new">New</span>
+                        <img src="images/m5.PNG" class="card-img-top" alt="Apple Watch">
+                        <div class="card-body d-flex flex-column">
+                            <p class="text-muted small">Wearables</p>
+                            <h5 class="card-title">Apple Watch Series 8</h5>
+                            <div class="rating mb-2">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <span class="ms-1 text-muted small">(65)</span>
+                            </div>
+                            <div class="mt-auto">
+                                <span class="fw-bold text-primary">$399.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card product-card h-100">
+                        <span class="badge bg-primary badge-new">New</span>
+                        <img src="images/m6.PNG" class="card-img-top" alt="Bose QuietComfort Earbuds">
+                        <div class="card-body d-flex flex-column">
+                            <p class="text-muted small">Audio</p>
+                            <h5 class="card-title">Bose QuietComfort Earbuds</h5>
+                            <div class="rating mb-2">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                                <span class="ms-1 text-muted small">(51)</span>
+                            </div>
+                            <div class="mt-auto">
+                                <span class="fw-bold text-primary">$279.99</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-5">
+        <div class="container">
+            <div class="bg-primary text-white rounded-3 p-5">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="mb-3">Stay Updated with Tech Trends</h2>
+                        <p class="mb-4">Subscribe to our newsletter for the latest product releases, tech news, and exclusive deals</p>
+                        <div class="row g-2 justify-content-center">
+                            <div class="col-md-8">
+                                <div class="input-group">
+                                    <input type="email" class="form-control" placeholder="Enter your email">
+                                    <button class="btn btn-light text-primary" type="button">Subscribe</button>
+                                </div>
+                                <p class="form-text text-white-50 mt-2">
+                                    By subscribing, you agree to our Privacy Policy and consent to receive updates from TechMart.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center section-title">About TechMart</h2>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="https://images.unsplash.com/photo-1581092921461-39b9d08a9b21?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="About TechMart" class="img-fluid about-img">
+                </div>
+                <div class="col-lg-6">
+                    <h3 class="mb-4">Your Trusted Technology Partner</h3>
+                    <p class="lead">At TechMart, we're passionate about bringing you the latest and greatest in technology.</p>
+                    <p>Founded in 2015, TechMart has grown from a small online store to one of the leading electronics retailers in the country. We pride ourselves on offering only the highest quality products from trusted brands at competitive prices.</p>
+                    <p>Our team of tech experts carefully selects each product in our inventory to ensure it meets our strict standards for performance, reliability, and value. We believe that everyone deserves access to great technology that enhances their lives.</p>
+                    <div class="mt-4">
+                        <a href="#" class="btn btn-primary">Learn More About Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <h2 class="text-center section-title">Contact Us</h2>
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="contact-form bg-white">
+                        <h3 class="mb-4">Send Us a Message</h3>
+                        <form>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="name" placeholder="Enter your name">
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Enter your message"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="contact-info bg-white p-4 h-100 contact-form">
+                        <h3 class="mb-4">Contact Information</h3>
+                        <p class="lead">We're here to help! Reach out to us with any questions or concerns.</p>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-geo-alt-fill text-primary me-3 fs-4"></i>
+                            <p class="mb-0">123 Tech Street, Digital City, TC 12345</p>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-telephone-fill text-primary me-3 fs-4"></i>
+                            <p class="mb-0">+1 (555) 123-4567</p>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-envelope-fill text-primary me-3 fs-4"></i>
+                            <p class="mb-0">info@techmart.com</p>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-clock-fill text-primary me-3 fs-4"></i>
+                            <div>
+                                <p class="mb-0">Monday - Friday: 9:00 AM - 8:00 PM</p>
+                                <p class="mb-0">Saturday - Sunday: 10:00 AM - 6:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="mb-3">TechMart</h5>
+                    <p>Your one-stop shop for all things tech. We offer the latest gadgets and electronics at competitive prices.</p>
+                    <div class="mt-3">
+                        <a href="#" class="text-white social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white social-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white social-icon"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="mb-3">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Home</a></li>
+                        <li class="mb-2"><a href="#about" class="text-white text-decoration-none">About</a></li>
+                        <li class="mb-2"><a href="#products" class="text-white text-decoration-none">Products</a></li>
+                        <li class="mb-2"><a href="#contact" class="text-white text-decoration-none">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="mb-3">Categories</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="laptops.html" class="text-white text-decoration-none">Laptops</a></li>
+                        <li class="mb-2"><a href="smartphones.html" class="text-white text-decoration-none">Smartphones</a></li>
+                        <li class="mb-2"><a href="accessories.html" class="text-white text-decoration-none">Accessories</a></li>
+                        <li class="mb-2"><a href="smart-home.html" class="text-white text-decoration-none">Smart Home</a></li>
+                        <li class="mb-2"><a href="gaming.html" class="text-white text-decoration-none">Gaming</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5 class="mb-3">Newsletter</h5>
+                    <p>Subscribe to our newsletter to receive updates on new products and special offers.</p>
+                    <form class="d-flex">
+                        <input type="email" class="form-control me-2" placeholder="Your email address">
+                        <button class="btn btn-primary" type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="mb-0">&copy; 2025 TechMart. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="mb-0">
+                        <a href="#" class="text-white text-decoration-none me-3">Privacy Policy</a>
+                        <a href="#" class="text-white text-decoration-none me-3">Terms of Service</a>
+                        <a href="#" class="text-white text-decoration-none">FAQ</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
